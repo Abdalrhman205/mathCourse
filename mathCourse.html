@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>إدارة كورس الرياضيات</title>
+<style>
+:root{--bg:#f3f1ff;--card:#fff;--tx:#1f1b3a;--mu:#6e6a8c;--bd:#e4e0fb;--pr:#6c47ff;--pr2:#ec4899;--prt:#fff;--ok:#0f9d6e;--okb:#d9f7ea;--no:#e11d48;--nob:#ffe4ea;--hl:#efe9ff;--sh:0 6px 20px rgba(108,71,255,.12);
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#13112b;--card:#1d1a3d;--tx:#f0eeff;--mu:#a9a4d0;--bd:#2f2a5c;--pr:#8b72ff;--pr2:#f472b6;--prt:#fff;--ok:#4be0a8;--okb:#0f3a2e;--no:#ff7a93;--nob:#451a2a;--hl:#2a2560;--sh:0 6px 20px rgba(0,0,0,.35);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#13112b;--card:#1d1a3d;--tx:#f0eeff;--mu:#a9a4d0;--bd:#2f2a5c;--pr:#8b72ff;--pr2:#f472b6;--prt:#fff;--ok:#4be0a8;--okb:#0f3a2e;--no:#ff7a93;--nob:#451a2a;--hl:#2a2560;--sh:0 6px 20px rgba(0,0,0,.35);color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg) radial-gradient(circle at 100% 0,rgba(236,72,153,.14),transparent 45%),radial-gradient(circle at 0 30%,rgba(108,71,255,.16),transparent 50%);background-attachment:fixed;color:var(--tx);font-family:Tahoma,"Segoe UI",Arial,sans-serif;line-height:1.6}
+.wrap{max-width:900px;margin:0 auto;padding:16px}
+h1{font-size:24px;margin:0 0 2px}
+.hero{background:linear-gradient(135deg,#6c47ff,#a43fe0 55%,#ec4899);color:#fff;border-radius:20px;padding:20px 18px;margin-bottom:14px;box-shadow:0 10px 28px rgba(108,71,255,.35);position:relative;overflow:hidden}
+.hero:after{content:"∑ π √ ÷";position:absolute;left:12px;bottom:-6px;font-size:44px;opacity:.15;letter-spacing:8px;direction:ltr}
+.hero p{margin:0;opacity:.9;font-size:14px}
+h2{font-size:17px;margin:0 0 10px}
+.tabs{display:flex;gap:6px;margin-bottom:14px}
+.tabs button{flex:1;padding:11px 6px;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:14px;font:inherit;font-size:13px;cursor:pointer;box-shadow:var(--sh);transition:transform .15s}
+.tabs button:hover{transform:translateY(-2px)}
+.tabs button.on{background:linear-gradient(135deg,var(--pr),var(--pr2));color:#fff;border-color:transparent;font-weight:bold}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:16px;margin-bottom:14px;box-shadow:var(--sh)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:12px}
+.stat{background:var(--card);border:1px solid var(--bd);border-top:4px solid var(--c,var(--pr));border-radius:16px;padding:10px 12px;box-shadow:var(--sh)}
+.stat:nth-child(4n+1){--c:#6c47ff}.stat:nth-child(4n+2){--c:#14b8a6}.stat:nth-child(4n+3){--c:#f59e0b}.stat:nth-child(4n+4){--c:#ec4899}
+.stat b{display:block;font-size:20px}.stat span{color:var(--mu);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+label{font-size:13px;color:var(--mu);display:block;margin-bottom:3px}
+input,select,textarea{width:100%;padding:9px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx);font:inherit}
+.btn{padding:10px 16px;border:0;border-radius:12px;background:linear-gradient(135deg,var(--pr),var(--pr2));color:#fff;font:inherit;cursor:pointer;box-shadow:0 4px 12px rgba(108,71,255,.3)}
+.btn.g{background:transparent;color:var(--tx);border:1px solid var(--bd)}
+.btn.s{padding:4px 10px;font-size:13px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--bd);flex-wrap:wrap}
+.row:last-child{border-bottom:0}
+.mu{color:var(--mu);font-size:13px}
+.day{border-right:6px solid var(--dc,var(--pr))}
+.day h2{color:var(--dc,var(--pr))}
+.day.today{background:var(--hl);box-shadow:0 0 0 2px var(--dc,var(--pr)),var(--sh)}
+.av{float:right;margin-left:10px;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold;font-size:17px}
+.row>div:first-child{min-height:40px}
+.time{background:var(--hl);color:var(--pr);padding:4px 12px;border-radius:99px;font-weight:bold;font-size:14px}
+.tag{display:inline-block;padding:6px 14px;font-weight:bold;border-radius:99px;font-size:13px;cursor:pointer;border:0;font-family:inherit}
+.tag.ok{background:var(--okb);color:var(--ok)}.tag.no{background:var(--nob);color:var(--no)}
+.tag.off{background:var(--bg);color:var(--mu);border:1px solid var(--bd)}.tag{margin-left:4px}
+.empty{color:var(--mu);text-align:center;padding:18px}
+.acts{display:flex;gap:6px}
+.bar{height:8px;background:var(--bd);border-radius:9px;overflow:hidden;margin-top:6px}.bar i{display:block;height:100%;background:var(--ok)}
+.chip{display:inline-flex;align-items:center;gap:4px;margin:3px 0 3px 6px;padding:6px 12px;border:1px solid var(--bd);border-radius:99px;background:var(--bg);color:var(--tx);cursor:pointer;font-size:14px}
+.chip input{width:auto;margin:0}.chip:has(input:checked){background:linear-gradient(135deg,var(--pr),var(--pr2));color:#fff;border-color:transparent}
+.tag.part{background:#fff1cc;color:#9a6700}
+.pi{width:86px;padding:5px 8px}
+.banner{background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff;border-radius:14px;padding:12px 14px;margin-bottom:12px;font-weight:bold;box-shadow:var(--sh)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="hero"><h1>📐 إدارة كورس الرياضيات</h1><p id="hd"></p></div>
+<div id="nb" class="banner" hidden></div>
+<div class="tabs">
+<button data-t="sched" class="on">الجدول</button><button data-t="att">الحضور</button><button data-t="stu">الطلاب</button><button data-t="pay">المدفوعات</button><button data-t="card">بطاقة</button>
+</div>
+<section id="sched"></section>
+<section id="att" hidden>
+<div class="card"><label>تاريخ الحصة</label><input type="date" id="ad"></div>
+<div class="card"><div id="alist"></div></div>
+</section>
+<section id="stu" hidden>
+<div class="card">
+<h2 id="ftitle">إضافة طالب</h2>
+<div class="grid">
+<div><label>اسم الطالب</label><input id="n"></div>
+<div><label>الصف</label><select id="g"></select></div>
+<div><label>المادة</label><input id="s" value="رياضيات"></div>
+<div><label>وقت الحصة</label><input id="t" type="time" value="16:00"></div>
+<div><label>سعر الحصة الواحدة</label><input id="pr" type="number" min="0" value="10"></div>
+<div><label>عدد حصص الشهر</label><input id="pm" type="number" min="1" placeholder="تلقائي"></div>
+<div><label>طريقة الدفع</label><select id="ty"><option value="m">شهري (كامل الشهر)</option><option value="d">باليوم (عن كل حصة)</option></select></div>
+</div>
+<label style="margin-top:12px">أيام الحضور</label>
+<div id="dchips"></div>
+<div style="margin:8px 0"><button class="btn g s" data-p="0">السبت ← الأربعاء</button> <button class="btn g s" data-p="1">سبت · اثنين · أربعاء</button> <button class="btn g s" data-p="2">أحد · ثلاثاء · خميس</button></div>
+<p class="mu" id="calc"></p>
+<p><button class="btn" id="save">حفظ</button> <button class="btn g" id="cancel" hidden>إلغاء</button></p>
+</div>
+<div class="card"><h2>قائمة الطلاب (<span id="cnt">0</span>)</h2><div id="list"></div></div>
+</section>
+<section id="pay" hidden>
+<div class="card" style="display:flex;gap:10px;align-items:end;flex-wrap:wrap">
+<div style="flex:1;min-width:140px"><label>الشهر</label><input type="month" id="m"></div>
+<div style="flex:2;min-width:160px"><label>بحث</label><input id="q" placeholder="اسم الطالب"></div>
+</div>
+<div class="stats" id="stats"></div>
+<div class="card"><div id="plist"></div></div>
+</section>
+<section id="card" hidden>
+<div class="card"><div class="grid"><div><label>الطالب</label><select id="cs"></select></div><div><label>الشهر</label><input type="month" id="cm"></div></div></div>
+<div id="cbody"></div>
+</section>
+<div class="card"><h2>🔔 التنبيهات</h2>
+<div class="grid"><div><label>نبّهني قبل الحصة بـ</label><select id="nm"><option value="5">5 دقائق</option><option value="10">10 دقائق</option><option value="15">15 دقيقة</option><option value="30">30 دقيقة</option></select></div></div>
+<p><button class="btn" id="nbtn">تفعيل الإشعارات</button> <button class="btn g" id="ntest">تجربة</button> <span class="mu" id="nst"></span></p>
+<p class="mu">التنبيه (شريط ملوّن + صوت + إشعار إن سمح المتصفح) يعمل ما دامت الصفحة مفتوحة على الهاتف أو الحاسوب.</p></div>
+<div class="card">
+<h2>التخزين والنسخ الاحتياطي</h2><p class="mu" id="dbs">جارٍ فحص التخزين…</p>
+<textarea id="bk" rows="3"></textarea>
+<p><button class="btn g" id="exp">تجهيز ونسخ</button> <button class="btn g" id="imp">استرجاع</button> <span class="mu" id="msg"></span></p>
+</div>
+</div>
+<script>
+const DAYS=["السبت","الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة"],PRE=[[0,1,2,3,4],[0,2,4],[1,3,5]];
+const GR=["تمهيدي"];for(let i=1;i<=12;i++)GR.push("الصف "+i);GR.push("جامعي");
+let S={students:[],paid:{},att:{},extra:{},nm:15},edit=null,pmMan=false,DB=null,tmr=null;const fired={};
+const $=x=>document.getElementById(x);
+try{const r=localStorage.getItem("mathcourse");if(r)S=JSON.parse(r)}catch(e){}
+const byId=id=>S.students.find(s=>s.id===id);
+function norm(){S.att=S.att||{};S.extra=S.extra||{};S.paid=S.paid||{};S.nm=S.nm||15;
+S.students.forEach(s=>{if(!s.days)s.days=s.day?[s.day]:[];s.pm=s.pm||8;if(s.price==null)s.price=Math.round((s.fee||0)/s.pm*100)/100;s.type=s.type||"m";s.fee=s.fee||s.pm*s.price});
+if(S.pay){Object.keys(S.pay).forEach(k=>{const s=byId(k.split("|")[0]);if(s&&S.paid[k]==null)S.paid[k]=s.fee});delete S.pay}}
+norm();
+function save(){try{localStorage.setItem("mathcourse",JSON.stringify(S))}catch(e){}
+if(DB){clearTimeout(tmr);tmr=setTimeout(()=>DB.set({json:JSON.stringify(S)}).catch(()=>{$("dbs").textContent="تعذر الحفظ في قاعدة البيانات"}),400)}}
+const esc=x=>String(x).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const money=n=>Number(n||0).toLocaleString("en-US");
+function tm(t){if(!t)return"";const p=t.split(":"),h=+p[0];return(h%12||12)+":"+p[1]+(h<12?" ص":" م")}
+const PAL=["#6c47ff","#ec4899","#14b8a6","#f59e0b","#3b82f6","#ef4444","#8b5cf6","#10b981"],DC=["#6c47ff","#ec4899","#14b8a6","#f59e0b","#3b82f6","#ef4444","#10b981"];
+function av(n){let h=0;for(const c of n)h+=c.charCodeAt(0);return`<span class="av" style="background:${PAL[h%PAL.length]}">${esc(n.trim().charAt(0))}</span>`}
+const iso=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const dayName=d=>DAYS[(new Date(d+"T12:00").getDay()+1)%7];
+function nextM(c){let[y,m]=c.split("-").map(Number);m++;if(m>12){m=1;y++}return y+"-"+String(m).padStart(2,"0")}
+const cnt=(s,m)=>Object.keys(S.att).filter(k=>k.indexOf(s.id+"|"+m)===0&&S.att[k]>0).length;
+const due=(s,m)=>s.type==="d"?cnt(s,m)*s.price:s.fee;
+const pd=(s,m)=>S.paid[s.id+"|"+m]||0;
+
+$("g").innerHTML=GR.map(x=>`<option>${x}</option>`).join("");
+$("dchips").innerHTML=DAYS.map(d=>`<label class="chip"><input type="checkbox" value="${d}">${d}</label>`).join("");
+const now=new Date();$("m").value=iso(now).slice(0,7);$("cm").value=$("m").value;$("ad").value=iso(now);
+const todayName=dayName(iso(now));
+document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{
+document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x===b));
+["sched","att","stu","pay","card"].forEach(id=>$(id).hidden=id!==b.dataset.t);render()});
+
+const getDays=()=>DAYS.filter(d=>document.querySelector('#dchips input[value="'+d+'"]').checked);
+function setDays(a){document.querySelectorAll("#dchips input").forEach(i=>i.checked=a.includes(i.value))}
+function calc(){const pm=+$("pm").value||0,pr=+$("pr").value||0;
+$("calc").textContent=$("ty").value==="d"?"الدفع باليوم: "+money(pr)+" عن كل حصة يحضرها (تقدير الشهر "+money(pm*pr)+")":"الأجر الشهري = "+pm+" حصة × "+money(pr)+" = "+money(pm*pr)}
+function autoPm(){if(!pmMan)$("pm").value=getDays().length*4||"";calc()}
+$("dchips").onchange=autoPm;$("pr").oninput=calc;$("ty").onchange=calc;$("pm").oninput=()=>{pmMan=true;calc()};
+document.querySelectorAll("[data-p]").forEach(b=>b.onclick=()=>{setDays(PRE[b.dataset.p].map(i=>DAYS[i]));autoPm()});
+
+$("save").onclick=()=>{const name=$("n").value.trim(),days=getDays();
+if(!name){$("n").focus();return}if(!days.length){alert("اختر يوماً واحداً على الأقل");return}
+const pm=+$("pm").value||days.length*4,pr=+$("pr").value||0;
+const o={name,grade:$("g").value,subject:$("s").value.trim()||"رياضيات",days,time:$("t").value,price:pr,pm,fee:pm*pr,type:$("ty").value};
+if(edit)Object.assign(byId(edit),o);else{o.id=Date.now().toString(36)+Math.random().toString(36).slice(2,5);o.since=$("m").value;S.students.push(o)}
+save();reset();render()};
+$("cancel").onclick=reset;
+function reset(){edit=null;pmMan=false;$("n").value="";$("pm").value="";$("pr").value=10;$("ty").value="m";setDays([]);calc();$("ftitle").textContent="إضافة طالب";$("cancel").hidden=true}
+window.ed=id=>{const s=byId(id);edit=id;$("n").value=s.name;$("g").value=s.grade;$("s").value=s.subject;$("t").value=s.time;$("pr").value=s.price;$("pm").value=s.pm;$("ty").value=s.type;pmMan=true;setDays(s.days);calc();
+$("ftitle").textContent="تعديل بيانات الطالب";$("cancel").hidden=false;window.scrollTo(0,0)};
+window.del=id=>{if(!confirm("حذف هذا الطالب وسجلاته؟"))return;S.students=S.students.filter(s=>s.id!==id);
+[S.paid,S.att].forEach(o=>Object.keys(o).forEach(k=>{if(k.indexOf(id+"|")===0)delete o[k]}));save();render()};
+
+function renderSched(){
+const t=S.students.filter(s=>s.days.includes(todayName)).length;
+let h=`<div class="stats"><div class="stat"><b>${S.students.length}</b><span>عدد الطلاب</span></div><div class="stat"><b>${t}</b><span>حصص اليوم (${todayName})</span></div></div>`;
+DAYS.forEach((d,i)=>{const L=S.students.filter(s=>s.days.includes(d)).sort((a,b)=>a.time<b.time?-1:1);if(!L.length)return;
+h+=`<div class="card day${d===todayName?" today":""}" style="--dc:${DC[i]}"><h2>${d}${d===todayName?" — اليوم":""}</h2>`+L.map(s=>`<div class="row"><div>${av(s.name)}<b>${esc(s.name)}</b><div class="mu">${esc(s.grade)} · ${esc(s.subject)}</div></div><span class="time">${tm(s.time)}</span></div>`).join("")+"</div>"});
+if(!S.students.length)h+='<div class="empty">لا يوجد طلاب بعد. أضف أول طالب من تبويب «الطلاب».</div>';
+$("sched").innerHTML=h}
+
+function renderStu(){$("cnt").textContent=S.students.length;
+$("list").innerHTML=S.students.length?S.students.map(s=>`<div class="row"><div>${av(s.name)}<b>${esc(s.name)}</b><div class="mu">${esc(s.grade)} · ${esc(s.subject)} · ${s.days.join("، ")} · ${tm(s.time)}</div><div class="mu">${money(s.price)}/حصة · ${s.pm} حصة · ${money(s.fee)} شهرياً · ${s.type==="d"?"يدفع باليوم":"يدفع شهرياً"}</div></div><div class="acts"><button class="btn g s" onclick="ed('${s.id}')">تعديل</button><button class="btn g s" onclick="del('${s.id}')">حذف</button></div></div>`).join(""):'<div class="empty">لا يوجد طلاب</div>'}
+
+function renderAtt(){const d=$("ad").value,dn=dayName(d),ex=S.extra[d]||[];
+const L=S.students.filter(s=>s.days.includes(dn)||ex.includes(s.id)).sort((a,b)=>a.time<b.time?-1:1),rest=S.students.filter(s=>!L.includes(s));
+let h=`<p class="mu">${dn} — يظهر هنا فقط من لديه حصة في هذا اليوم</p>`;
+h+=L.map(s=>{const v=S.att[s.id+"|"+d];return`<div class="row"><div>${av(s.name)}<b>${esc(s.name)}</b><div class="mu">${tm(s.time)}${s.days.includes(dn)?"":" · حصة تعويضية"}</div></div><div><button class="tag ${v>0?"ok":"off"}" onclick="at('${s.id}',1)">✔ حضر</button><button class="tag ${v===2?"ok":"off"}" onclick="at('${s.id}',2)">⏹ انتهت</button><button class="tag ${v===0?"no":"off"}" onclick="at('${s.id}',0)">✖ غاب</button></div></div>`}).join("")||'<div class="empty">لا توجد حصص في هذا اليوم</div>';
+if(rest.length)h+=`<div class="row"><div style="flex:1;min-width:150px"><label>طالب جاء في غير موعده (تعويضية)</label><select id="xs">${rest.map(s=>`<option value="${s.id}">${esc(s.name)}</option>`).join("")}</select></div><button class="btn g s" onclick="ax()">إضافة لهذا اليوم</button></div>`;
+$("alist").innerHTML=h}
+window.at=(id,v)=>{const k=id+"|"+$("ad").value,c=S.att[k];if(v===2)S.att[k]=c===2?1:2;else if(c===v)delete S.att[k];else S.att[k]=v;save();render()};
+window.ax=()=>{const d=$("ad").value;(S.extra[d]=S.extra[d]||[]).push($("xs").value);save();renderAtt()};
+$("ad").onchange=renderAtt;
+
+function renderPay(){const m=$("m").value,q=$("q").value.trim();let ex=0,got=0,rem=0,full=0;
+S.students.forEach(s=>{const d=due(s,m),p=pd(s,m);ex+=d;got+=p;rem+=Math.max(d-p,0);if(d>0&&p>=d)full++});
+$("stats").innerHTML=`<div class="stat"><b>${money(ex)}</b><span>المستحق</span></div><div class="stat"><b style="color:var(--ok)">${money(got)}</b><span>المدفوع</span></div><div class="stat"><b style="color:var(--no)">${money(rem)}</b><span>المتبقي</span></div><div class="stat"><b>${full} / ${S.students.length}</b><span>أتمّوا الدفع</span></div>`;
+const L=S.students.filter(s=>s.name.includes(q));
+$("plist").innerHTML=L.length?L.map(s=>{const d=due(s,m),p=pd(s,m),st=d>0&&p>=d?["ok","✔ دفع كامل"]:p>0?["part","جزء — متبقي "+money(Math.max(d-p,0))]:["no","✖ لم يدفع"];
+return`<div class="row"><div>${av(s.name)}<b>${esc(s.name)}</b><div class="mu">${s.type==="d"?"باليوم: "+cnt(s,m)+" حصة × "+money(s.price):"شهري"} — المستحق ${money(d)}</div></div><div class="acts"><input class="pi" type="number" min="0" value="${p}" onchange="sp('${s.id}',this.value)"><button class="tag ${st[0]}" onclick="fp('${s.id}')">${st[1]}</button></div></div>`}).join(""):'<div class="empty">لا يوجد طلاب</div>'}
+window.sp=(id,v)=>{S.paid[id+"|"+$("m").value]=+v||0;save();render()};
+window.fp=id=>{const s=byId(id),m=$("m").value,d=due(s,m);S.paid[id+"|"+m]=pd(s,m)>=d&&d>0?0:d;save();render()};
+$("m").onchange=renderPay;$("q").oninput=renderPay;
+
+let TXT="";
+function renderCard(){const sel=$("cs"),cur=sel.value;
+sel.innerHTML=S.students.map(s=>`<option value="${s.id}">${esc(s.name)}</option>`).join("");if(cur)sel.value=cur;
+const s=byId(sel.value),m=$("cm").value;
+if(!s){$("cbody").innerHTML='<div class="empty">أضف طلاباً أولاً</div>';return}
+const ds=Object.keys(S.att).filter(k=>k.indexOf(s.id+"|"+m)===0).sort();let ok=0,ab=0;ds.forEach(k=>S.att[k]>0?ok++:ab++);
+const left=Math.max(s.pm-ok,0),d=due(s,m),p=pd(s,m);let late=[],tot=0,c=s.since||m;
+while(c<=m){const r=due(s,c)-pd(s,c);if(r>0){late.push(c);tot+=r}c=nextM(c)}
+const lt=late.length?money(tot)+" ("+late.join("، ")+")":"لا توجد متأخرات ✔";
+TXT=`مرحباً، ملخص الطالب ${s.name} لشهر ${m}:\n✔ الحضور: ${ok}\n✖ الغياب: ${ab}\n📚 الحصص المتبقية: ${left} من ${s.pm}\n💰 المدفوع هذا الشهر: ${money(p)} من ${money(d)}\n⚠ المتأخرات: ${lt}`;
+$("cbody").innerHTML=`<div class="card"><div style="min-height:44px">${av(s.name)}<h2 style="margin:0">${esc(s.name)}</h2><div class="mu">${esc(s.grade)} · ${s.days.join("، ")} · ${tm(s.time)}</div></div>
+<div class="stats" style="margin-top:12px"><div class="stat"><b>${ok}</b><span>حضر</span></div><div class="stat"><b>${ab}</b><span>غاب</span></div><div class="stat"><b>${left}</b><span>حصص متبقية من ${s.pm}</span></div><div class="stat"><b style="color:var(--${d>0&&p>=d?"ok":"no"})">${money(p)} / ${money(d)}</b><span>المدفوع هذا الشهر</span></div></div>
+<div class="bar"><i style="width:${Math.min(100,Math.round(ok/s.pm*100))}%"></i></div>
+<p>⚠ المتأخرات: <b>${lt}</b></p>
+${ds.length?ds.map(k=>`<span class="tag ${S.att[k]>0?"ok":"no"}">${k.split("|")[1].slice(5)}${S.att[k]>0?" ✔":" ✖"}</span>`).join(""):'<div class="mu">لا يوجد تسجيل حضور في هذا الشهر</div>'}
+<p><a class="btn" style="text-decoration:none;display:inline-block" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(TXT)}">إرسال عبر واتساب</a> <button class="btn g" id="cp">نسخ الملخص</button> <span class="mu" id="cpm"></span></p></div>`;
+$("cp").onclick=()=>{try{navigator.clipboard.writeText(TXT).then(()=>$("cpm").textContent="تم النسخ ✔")}catch(e){$("cpm").textContent="تعذر النسخ"}}}
+$("cm").onchange=renderCard;$("cs").onchange=renderCard;
+
+function beep(){try{const a=new(window.AudioContext||window.webkitAudioContext)(),o=a.createOscillator();o.connect(a.destination);o.frequency.value=880;o.start();setTimeout(()=>{o.stop();a.close()},400)}catch(e){}}
+function notify(t){beep();try{if(window.Notification&&Notification.permission==="granted")new Notification("📐 حصة قريبة",{body:t})}catch(e){}}
+function tick(){const n=new Date(),d=iso(n),dn=dayName(d),mins=n.getHours()*60+n.getMinutes(),M=[];
+S.students.forEach(s=>{if(!s.days.includes(dn)||!s.time)return;const p=s.time.split(":"),diff=+p[0]*60+ +p[1]-mins;
+if(diff>S.nm||diff<-30||S.att[s.id+"|"+d]!=null)return;
+const t=diff>0?`بعد ${diff} دقيقة: ${s.name} (${tm(s.time)})`:`الآن: ${s.name} (${tm(s.time)})`;M.push(t);
+if(!fired[d+s.id]){fired[d+s.id]=1;notify(t)}});
+$("nb").hidden=!M.length;$("nb").innerHTML="🔔 "+M.map(esc).join("<br>🔔 ")}
+$("nm").value=S.nm;$("nm").onchange=()=>{S.nm=+$("nm").value;save();tick()};
+$("nbtn").onclick=()=>{try{Notification.requestPermission().then(p=>$("nst").textContent=p==="granted"?"مفعّلة ✔":"غير مفعّلة — يبقى الشريط والصوت داخل الصفحة")}catch(e){$("nst").textContent="الإشعارات غير متاحة هنا — يبقى الشريط والصوت داخل الصفحة"}};
+$("ntest").onclick=()=>notify("تجربة: لديك حصة بعد 10 دقائق");
+setInterval(tick,20000);
+
+$("exp").onclick=()=>{const j=JSON.stringify(S);$("bk").value=j;
+try{navigator.clipboard.writeText(j).then(()=>$("msg").textContent="تم النسخ ✔",()=>{$("bk").select();$("msg").textContent="انسخ النص يدوياً"})}catch(e){$("bk").select();$("msg").textContent="انسخ النص يدوياً"}};
+$("imp").onclick=()=>{try{const o=JSON.parse($("bk").value);if(!o.students)throw 0;if(!confirm("سيتم استبدال البيانات الحالية. متابعة؟"))return;S=o;norm();save();render();$("msg").textContent="تم الاسترجاع ✔"}catch(e){$("msg").textContent="نص غير صالح"}};
+
+function render(){$("hd").textContent="اليوم: "+todayName+" · "+S.students.length+" طالب";renderSched();renderAtt();renderStu();renderPay();renderCard();tick()}
+reset();render();
+(async()=>{try{
+const u=await claude.use("user"),d=await claude.use("db");
+if(!u||!d){$("dbs").textContent="التخزين: هذا الجهاز فقط";return}
+const ref=d.doc("data/users/"+await u.id()+"/course"),sn=await ref.get();
+if(sn.exists){S=JSON.parse(sn.data().json);norm();try{localStorage.setItem("mathcourse",JSON.stringify(S))}catch(e){}$("nm").value=S.nm;render()}
+else if(S.students.length){await ref.set({json:JSON.stringify(S)})}
+DB=ref;$("dbs").textContent="✔ بياناتك محفوظة في قاعدة بيانات خاصة بحسابك، ومتزامنة بين أجهزتك"
+}catch(e){$("dbs").textContent="التخزين: هذا الجهاز فقط"}})();
+</script>
+</body>
+</html>
